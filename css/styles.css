@@ -1,0 +1,570 @@
+:root {
+  --bg: #969aa3;
+  --panel: #fffffffd;
+  --muted: #94a3b8;
+  --text: #e5e7eb;
+  --subtitle: #b1b5bd;
+  --primary: #22c55e;
+  --danger: #ef4444;
+  --secondary: #334155;
+  --card: #b29797;
+  --accent: #3b82f6;
+  --shadow: 0 10px 30px rgba(107, 105, 105, 0.25);
+  --space-section: clamp(24px, 6vw, 64px);
+  --panelbg: #f9fafb;
+  --footer-h: clamp(48px, 5vw, 72px);
+
+  /* ALTURA DEL HEADER PARA EVITAR SUPERPOSICIÓN */
+  --nav-h: 120px;
+}
+
+* {
+  box-sizing: border-box
+}
+
+/* Header pegajoso sobre el contenido */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+body {
+  /* QUITADO margin-top: 150px;  → reemplazado por padding-top usando --nav-h */
+  margin: 0;
+  padding-top: var(--nav-h);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background-color: var(--bg);
+  line-height: 1.5;
+}
+
+/*------ MAIN / AMBAS PAGINAS ------*/
+header .navbar {
+  background-color: #222222;
+  padding: .75rem 2rem;
+  /* antes: 1rem 2rem */
+}
+
+header .navbar .header-logo img {
+  height: 72px;
+  /* antes: 100px */
+  width: auto;
+}
+
+header .navbar .navbar-nav .nav-item {
+  margin: 10px;
+}
+
+header .navbar .navbar-nav .nav-item .nav-link {
+  color: #e7dfd4;
+  margin: 10px 20px;
+}
+
+
+/*------- PAGINA TIENDA --------*/
+
+.container {
+  /* MOD: contenedor fluido y centrado */
+  width: min(1200px, 100% - 48px);
+  margin-inline: auto;
+  padding: 24px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  /* MOD: primera columna más grande */
+  gap: 20px;
+  align-items: start;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid #6d7075;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #ffffff;
+  padding-bottom: 12px;
+}
+
+.toolbar {
+  display: flex;
+  gap: 8px;
+  align-items: center
+}
+
+.toolbar input,
+.toolbar select {
+  min-width: 160px
+}
+
+.catalog {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+  display: grid;
+  /* MOD: auto-fit para que se adapte mejor a diferentes anchos */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px
+}
+
+.card {
+  background: var(--panel);
+  /* FIX: antes 'panel' (inválido) */
+  border: 1px solid #132036;
+  border-radius: 14px;
+  padding: 12px;
+  display: grid;
+  gap: 8px;
+}
+
+.card h3 {
+  margin: 0
+}
+
+.card .meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 0.9rem
+}
+
+.badge {
+  background: #0b1f3a;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid #123561
+}
+
+.price {
+  font-weight: 700;
+  font-size: 1.1rem
+}
+
+.card .actions {
+  display: flex;
+  gap: 8px
+}
+
+input,
+select,
+button {
+  border-radius: 10px;
+  border: 1px solid #1f2a44;
+  padding: 10px 12px;
+  background: #0b1020;
+  color: var(--text);
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent)
+}
+
+.btn {
+  cursor: pointer;
+  border: 1px solid #28406e;
+  /* MOD: padding fluido para mejor tactilidad */
+  padding: clamp(10px, 2.2vw, 12px) clamp(16px, 3vw, 25px);
+}
+
+.btn.primary {
+  background: #2e6e36;
+  border-color: #14532d
+}
+
+.btn.secondary {
+  background: #103057
+}
+
+.btn.danger {
+  background: #2a0d0d;
+  border-color: #4c1d1d
+}
+
+.btn:disabled {
+  opacity: .5;
+  cursor: not-allowed
+}
+
+.cart {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  gap: 10px;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #17203a;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.qty {
+  display: flex;
+  gap: 6px;
+  align-items: center
+}
+
+.qty input {
+  width: 72px;
+  text-align: center
+}
+
+.summary {
+  margin-top: 16px;
+  padding: 12px;
+  background: #ffffff;
+  border: 1px solid #132036;
+  border-radius: 12px
+}
+
+.summary .row {
+  display: flex;
+  justify-content: space-between;
+  margin: 6px 0
+}
+
+.summary .total {
+  font-size: 1.2rem
+}
+
+.inline-form {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 10px;
+  flex-wrap: wrap
+}
+
+.msg {
+  min-height: 1.2rem;
+  color: var(--muted)
+}
+
+.hint {
+  color: var(--muted)
+}
+
+.stack {
+  display: grid;
+  gap: 10px
+}
+
+.field {
+  display: grid;
+  gap: 6px
+}
+
+.empty {
+  color: var(--muted);
+  margin: 12px 0
+}
+
+.hidden {
+  display: none
+}
+
+.receipt {
+  margin-top: 16px;
+  padding: 12px;
+  background: #ffffff;
+  border: 1px solid #193057;
+  border-radius: 12px
+}
+
+.receipt h3 {
+  margin-top: 0
+}
+
+.receipt table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px
+}
+
+.receipt th,
+.receipt td {
+  border-bottom: 1px solid #1f2a44;
+  padding: 8px;
+  text-align: left
+}
+
+
+/* ------ Reset básico ------ */
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+}
+
+.menu li {
+  margin: 0 20px;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #ecf0f1;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.menu a:hover {
+  color: #1abc9c;
+}
+
+/* Sección principal */
+
+.hero {
+  text-align: center;
+  /* MOD: padding fluido */
+  padding: clamp(60px, 12vw, 120px) 20px;
+  background: url("https://images.unsplash.com/photo-1586201375761-83865001e17d") no-repeat center/cover;
+  color: white;
+}
+
+.hero h1 {
+  /* MOD: tipografía fluida */
+  font-size: clamp(1.75rem, 3.5vw, 3rem);
+  margin-bottom: 20px;
+}
+
+.hero p {
+  /* MOD: tipografía fluida */
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  margin-bottom: 30px;
+}
+
+.btn {
+  display: inline-block;
+  background: #1abc9c;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: #16a085;
+}
+
+footer,
+footer.container,
+.footer {
+  position: fixed;
+  inset: auto 0 0 0;
+  /* bottom:0; left:0; right:0 */
+  width: 100vw;
+  /* ignora el ancho de .container */
+  max-width: 100vw;
+  margin: 0;
+  border-radius: 0;
+  box-sizing: border-box;
+  min-height: var(--footer-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #222222;
+  color: #ecf0f1;
+  padding: 12px 16px;
+  font-size: clamp(0.9rem, 1.6vw, 1rem);
+  z-index: 900;
+}
+
+body {
+  padding-bottom: var(--footer-h);
+}
+
+
+/* ========= Medias Querys (RESPONSIVE Y ESCALABLE) ========= */
+
+/* 2 columnas en tablets */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  /* Nav más compacto */
+  header .navbar {
+    padding: .6rem 1.2rem;
+  }
+
+  header .navbar .header-logo img {
+    height: 64px;
+  }
+}
+
+/* 1 columna en pantallas chicas: TODO EN UNA SOLA COLUMNA (STACKING) */
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: 1fr;
+    /* TODO alineado hacia abajo */
+    gap: 12px;
+  }
+
+  /* Catálogo forzado a 1 por fila */
+  .catalog {
+    grid-template-columns: 1fr;
+  }
+
+  /* Ítems del carrito en una sola columna */
+  .cart-item {
+    grid-template-columns: 1fr;
+    /* stack */
+    align-items: start;
+  }
+
+  .cart-item .actions,
+  .card .actions {
+    flex-wrap: wrap;
+  }
+
+  .card .actions .btn,
+  .cart-item .actions .btn {
+    width: 100%;
+    /* botones ancho completo en móvil */
+  }
+
+  /* Toolbar se apila */
+  .toolbar {
+    flex-wrap: wrap;
+  }
+
+  .toolbar input,
+  .toolbar select {
+    min-width: 0;
+    flex: 1 1 160px;
+  }
+
+  /* Inputs full-width en móvil para mejor usabilidad */
+  .inline-form {
+    gap: 6px;
+  }
+
+  input,
+  select,
+  button {
+    width: 100%;
+  }
+
+  /* Navegación más flexible */
+  header .navbar .navbar-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 12px;
+  }
+
+  header .navbar .navbar-nav .nav-item {
+    margin: 4px 6px;
+  }
+
+  /* Ajustes de hero para pantallas pequeñas */
+  .hero {
+    padding: clamp(40px, 16vw, 80px) 16px;
+  }
+
+  .hero h1 {
+    margin-bottom: 14px;
+  }
+
+  .hero p {
+    margin-bottom: 22px;
+  }
+}
+
+/* Catálogo 1 por fila en pantallas muy pequeñas (refuerzo) */
+@media (max-width: 420px) {
+  .catalog {
+    grid-template-columns: 1fr;
+  }
+
+  /* Logo aún más pequeño si hace falta */
+  header .navbar .header-logo img {
+    height: 56px;
+  }
+}
+
+/* ===== Modal de comprobante ===== */
+.modal-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  display: none;                 /* se muestra como flex desde JS */
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;                 /* por encima de header/footer */
+}
+
+.modal{
+  background: #ffffff;
+  color: #111;                   /* texto oscuro para buen contraste */
+  width: min(900px, 92vw);
+  max-height: 85vh;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,.35);
+  border: 1px solid rgba(0,0,0,.08);
+}
+
+.modal-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #222222;
+  color: #fff;
+}
+
+.modal-body{
+  padding: 16px;
+  overflow: auto;                /* scroll interno si es largo */
+}
+
+/* Botón cerrar (X) */
+.modal-close{
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* Reutiliza estilos de tu tabla de recibo dentro del modal */
+.modal-body .receipt,
+.modal-body table{
+  width: 100%;
+  border-collapse: collapse;
+}
+.modal-body th, .modal-body td{
+  border-bottom: 1px solid #e5e7eb;
+  padding: 8px;
+  text-align: left;
+}

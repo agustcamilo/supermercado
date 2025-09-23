@@ -1,0 +1,51 @@
+[
+  {
+    "id": "p1",
+    "name": "Leche entera 1L",
+    "price": 1200,
+    "category": "Lacteos",
+    "stock": 30
+  },
+  {
+    "id": "p2",
+    "name": "Pan marraqueta (kg)",
+    "price": 1800,
+    "category": "Panaderia",
+    "stock": 25
+  },
+  {
+    "id": "p3",
+    "name": "Arroz 1kg",
+    "price": 1400,
+    "category": "Abarrotes",
+    "stock": 40
+  },
+  {
+    "id": "p4",
+    "name": "Pollo pechuga (kg)",
+    "price": 3990,
+    "category": "Carnes",
+    "stock": 15
+  },
+  {
+    "id": "p5",
+    "name": "Queso gauda 250g",
+    "price": 2500,
+    "category": "Lácteos",
+    "stock": 20
+  },
+  {
+    "id": "p6",
+    "name": "Manzana fuji (kg)",
+    "price": 1500,
+    "category": "Frutas",
+    "stock": 35
+  },
+  {
+    "id": "p7",
+    "name": "Cafe molido 250g",
+    "price": 3500,
+    "category": "Bebidas",
+    "stock": 12
+  }
+]
