@@ -1,3 +1,5 @@
+import PRODUCTS from './data/products.js';
+
 const state = {
   products: [],
   categories: new Set(),
@@ -17,8 +19,7 @@ const money = (n) =>
 
 
 async function loadProducts() {
-  const res = await fetch('../data/products.json');
-  const baseData = await res.json();
+  const baseData = PRODUCTS();
 
   const saved = JSON.parse(localStorage.getItem('customProducts') || '[]');
   const merged = Array.isArray(saved) && saved.length
