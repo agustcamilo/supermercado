@@ -1,3 +1,5 @@
+import PRODUCTS from './data/products.js';
+
 const state = {
     products: [],
     categories: new Set(),
@@ -16,30 +18,21 @@ const money = (n) =>
     });
 
 async function loadProducts() {
-    const url = new URL("./data/products.json", import.meta.url); // 👈 relativo a app.js
-    const res = await fetch(url);
-    if (!res.ok) throw new Error("No se pudo cargar data/products.json");
-    const baseData = await res.json();
+  const baseData = PRODUCTS;  
 
-    const saved = JSON.parse(localStorage.getItem("customProducts") || "[]");
-    const merged =
-        Array.isArray(saved) && saved.length
-            ? [
-                ...baseData,
-                ...saved.filter(
-                    (p) => !baseData.some((b) => String(b.id) === String(p.id))
-                ),
-            ]
-            : baseData;
+  const saved = JSON.parse(localStorage.getItem('customProducts') || '[]');
+  const merged = Array.isArray(saved) && saved.length
+    ? [...baseData, ...saved.filter(p => !baseData.some(b => String(b.id) === String(p.id)))]
+    : baseData;
 
-    state.products = merged;
-    state.categories = new Set(merged.map((p) => p.category));
+  state.products = merged;
+  state.categories = new Set(merged.map(p => p.category));
 
-    renderFilters();
-    renderCatalog(merged);
-    updateCartCount();
-    computeTotals();
-    updateLiveStock();
+  renderFilters();
+  renderCatalog(merged);
+  updateCartCount();
+  computeTotals();
+  updateLiveStock();
 }
 
 function renderFilters() {
