@@ -1,125 +1,144 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Simulador de Carrito</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-  <link rel="stylesheet" href="./css/styles.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MiKiosko</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
 </head>
+
 <body>
-  <header>
-    <!-- Agrego navbar-dark para que el icono del toggler sea visible -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top">
-      <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Alternar navegación">
-          <span class="navbar-toggler-icon"></span>
+  <header class="site-header">
+    <div class="wrap">
+      <h1>MiKiosko</h1>
+      <div class="header-actions">
+        <input id="q" type="search" placeholder="Buscar productos… (ej: pan)" />
+        <select id="filterCategory">
+          <option value="">Todas las categorias</option>
+        </select>
+        <button id="btnCart" class="btn primary">
+          Carrito (<span id="cartCount">0</span>)
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mb-2 mb-lg-0">
-            <li class="nav-item"><a class="nav-link" aria-current="page" href="./index.html">Supermercado</a></li>
-            <li class="nav-item"><a class="nav-link" aria-current="page" href="./index.html">Inicio</a></li>
-            <li class="nav-item"><a class="nav-link" href="./tienda.html">Tienda</a></li>
-          </ul>
-        </div>
       </div>
-    </nav>
+    </div>
   </header>
 
-  <main class="container grid">
-    <section class="panel" aria-labelledby="titulo-catalogo">
-      <div class="panel-header">
-        <h2 id="titulo-catalogo">Catalogo</h2>
-        <div class="toolbar">
-          <input id="q" type="search" placeholder="Buscar producto..." aria-label="Buscar producto" />
-          <select id="categoryFilter" aria-label="Filtrar por categoria">
-            <option value="all">Todas</option>
-          </select>
-          <button id="btnReset" class="btn secondary" type="button" aria-label="Limpiar filtros">Limpiar filtros</button>
+  <main class="wrap">
+    <section id="catalog" class="grid"></section>
+
+    <aside class="checkout">
+      <h2>Resumen</h2>
+      <div class="totals">
+        <div><span>Subtotal</span><span id="subtotal">$0</span></div>
+        <div><span>Envio</span><span id="shipping">$0</span></div>
+        <div><span>Descuento</span><span id="discount">$0</span></div>
+        <div class="grand">
+          <span>Total</span><span id="grandTotal">$0</span>
         </div>
       </div>
 
-      <ul id="catalog" class="catalog" aria-live="polite"></ul>
-      <p id="catalogEmpty" class="empty hidden">No hay productos que coincidan.</p>
-    </section>
+      <form id="checkoutForm">
+        <h3>Datos del comprador</h3>
+        <div class="form-row">
+          <label>Nombre</label>
+          <input name="name" required value="Agus Martinez" />
+        </div>
+        <div class="form-row">
+          <label>Correo</label>
+          <input name="email" type="email" required value="juan.perez@correo.com" />
+        </div>
+        <div class="form-row split">
+          <div>
+            <label>Pais</label>
+            <input name="country" required value="Chile" />
+          </div>
+          <div>
+            <label>Codigo Postal</label>
+            <input name="zip" required value="2000" />
+          </div>
+        </div>
 
-    <section class="panel" aria-labelledby="titulo-carrito">
-      <div class="panel-header">
-        <h2 id="titulo-carrito">Carrito</h2>
-        <button id="btnClearCart" class="btn danger" type="button" aria-label="Vaciar carrito">Vaciar carrito</button>
-      </div>
+        <h3>Pago</h3>
+        <div class="form-row">
+          <label>N° Tarjeta</label>
+          <input name="card" inputmode="numeric" minlength="16" maxlength="19" placeholder="1111 1111 1111 1111"
+            required value="4111 1111 1111 1111" />
+        </div>
+        <div class="form-row split">
+          <div>
+            <label>Vencimiento (MM/AA)</label>
+            <input name="exp" placeholder="12/26" required value="12/25" />
+          </div>
+          <div>
+            <label>CVV</label>
+            <input name="cvv" inputmode="numeric" minlength="3" maxlength="4" required value="123" />
+          </div>
+        </div>
 
-      <div id="cart" class="cart" aria-live="polite"></div>
-      <p id="cartEmpty" class="empty">Tu carrito está vacío.</p>
+        <div class="form-row">
+          <label>Cupon de descuento</label>
+          <div class="inline">
+            <input id="couponInput" placeholder="INGRESA-CUPON" />
+            <button id="applyCoupon" type="button" class="btn">
+              Aplicar
+            </button>
+          </div>
+          <small>Usa <strong>BIENVENID@</strong> (10%) o
+            <strong>ENVIOGRATIS</strong> (envio sin cargo).</small>
+        </div>
 
-      <div class="summary">
-        <div class="row"><span>Items:</span><strong id="summaryItems">0</strong></div>
-        <div class="row"><span>Subtotal:</span><strong id="summarySubtotal">$0</strong></div>
-        <div class="row"><span>Descuento (cupón):</span><strong id="summaryDiscount">$0</strong></div>
-        <div class="row total"><span>Total:</span><strong id="summaryTotal">$0</strong></div>
-      </div>
-
-      <form id="cuponForm" class="inline-form" autocomplete="off" novalidate>
-        <label for="cupon">Cupón:</label>
-        <input id="cupon" name="cupon" placeholder="ejemplo: BIENVENIDO" />
-        <button class="btn" type="submit">Aplicar</button>
-        <span id="cuponMsg" class="msg" role="status" aria-live="polite"></span>
+        <button class="btn primary full" type="submit">
+          Finalizar compra
+        </button>
+        <button class="btn ghost full" id="clearCart" type="button">
+          Vaciar carrito
+        </button>
       </form>
-
-      <button id="btnCheckout" class="btn primary" type="button" disabled>Confirmar compra</button>
-      <div id="receipt" class="receipt hidden" aria-live="polite"></div>
-    </section>
-
-    <section class="panel" aria-labelledby="titulo-custom">
-      <h2 id="titulo-custom">Agregar producto propio</h2>
-      <form id="addForm" class="stack" autocomplete="off" novalidate>
-        <div class="field">
-          <label for="name">Nombre</label>
-          <input id="name" name="name" required placeholder="Ej: Pan integral" />
-          <small class="hint">Obligatorio. Mínimo 3 caracteres.</small>
-        </div>
-        <div class="field">
-          <label for="price">Precio</label>
-          <input id="price" name="price" type="number" min="0" step="100" required placeholder="Ej: 1200" />
-        </div>
-        <div class="field">
-          <label for="category">Categoría</label>
-          <input id="category" name="category" required placeholder="Ej: Panadería" />
-        </div>
-        <div class="field">
-          <label for="stock">Stock</label>
-          <input id="stock" name="stock" type="number" min="0" step="1" required value="10" />
-        </div>
-        <button class="btn primary" type="submit">Agregar al catálogo</button>
-        <span id="addMsg" class="msg" role="status" aria-live="polite"></span>
-      </form>
-    </section>
+    </aside>
   </main>
 
-  <!-- Footer full-width, no .container para que ocupe toda la línea -->
-  <footer class="footer">
-    <small>Entregable 2 — Agustin Camilo</small>
-  </footer>
+  <template id="tplCard">
+    <article class="card">
+      <div class="card-body">
+        <h3 class="title"></h3>
+        <p class="desc"></p>
+        <div class="meta">
+          <span class="price"></span>
+          <span class="stock"></span>
+        </div>
+        <div class="actions">
+          <button class="btn" data-action="less">−</button>
+          <input class="qty" type="number" min="1" value="1" />
+          <button class="btn" data-action="more">+</button>
+          <button class="btn primary" data-action="add">Agregar</button>
+        </div>
+      </div>
+    </article>
+  </template>
 
-  <!-- Modal Comprobante -->
-<div id="receiptModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="receiptTitle">
-  <div class="modal" role="document">
-    <div class="modal-header">
-      <h3 id="receiptTitle">Compra realizada con éxito</h3>
-      <button type="button" class="modal-close" aria-label="Cerrar comprobante">×</button>
-    </div>
-    <div id="receiptBody" class="modal-body">
-      <!-- Aquí se inyecta el comprobante -->
+  <div id="cartModal" class="modal hidden">
+    <div class="modal-content">
+      <button id="closeCart" class="close">×</button>
+      <h2>Carrito</h2>
+      <div id="cartItems"></div>
     </div>
   </div>
-</div>
 
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Entrega final Agustin Camilo</p>
+    </div>
+  </footer>
 
-  <script type="module" src="./js/app.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-o+RDsa0aLuP6X5nVvFQpKFx7nq3iVJj8m1Z7P0i3Y5t1s8A9kGz5WwG6E3bq5z5y"
-          crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script type="module" src="./app.js"></script>
 </body>
+
 </html>
