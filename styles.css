@@ -1,0 +1,508 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #0b1020;
+    --card: #121733;
+    --muted: #aab3d8;
+    --ink: #e8ecff;
+    --accent: #6ea8ff;
+    --accent2: #8fffbb;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(180deg, #0b1020, #0b1020 60%, #0e1530);
+    color: var(--ink);
+}
+
+.wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+.site-header {
+    position: sticky;
+    top: 0;
+    background: #0b1020c9;
+    backdrop-filter: saturate(120%) blur(8px);
+    border-bottom: 1px solid #263057;
+    z-index: 10;
+}
+
+.site-header h1 {
+    margin: 8px 0;
+    font-size: 22px;
+}
+
+.header-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.header-actions input,
+.header-actions select {
+    flex: 1;
+    min-width: 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid #263057;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.card .thumb {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    background: #0b1020;
+}
+
+.card-body {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.card .title {
+    margin: 0;
+    font-size: 16px;
+}
+
+.card .desc {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+    min-height: 36px;
+}
+
+.meta {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+}
+
+.price {
+    color: var(--accent);
+}
+
+.stock {
+    color: var(--accent2);
+    font-weight: 600;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: auto;
+}
+
+.qty {
+    width: 64px;
+    text-align: center;
+    border-radius: 6px;
+    border: 1px solid #2a3566;
+    background: #0b1020;
+    color: var(--ink);
+    padding: 6px;
+}
+
+.btn {
+    border: 1px solid #2a3566;
+    background: #182046;
+    color: var(--ink);
+    padding: 8px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    filter: brightness(1.1);
+}
+
+.btn.primary {
+    background: #3250ff;
+    border-color: #3a57ff;
+}
+
+.btn.ghost {
+    background: transparent;
+}
+
+.btn.full {
+    width: 100%;
+}
+
+.site-footer {
+    border-top: 1px solid #263057;
+    margin-top: 24px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.checkout {
+    position: sticky;
+    top: 64px;
+    align-self: start;
+    background: #0c1230;
+    border: 1px solid #263057;
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 16px;
+}
+
+main.wrap {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 16px;
+}
+
+@media (max-width:900px) {
+    main.wrap {
+        grid-template-columns: 1fr;
+    }
+
+    .checkout {
+        position: static;
+    }
+}
+
+.totals {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.totals>div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.totals .grand {
+    font-size: 18px;
+    border-top: 1px dashed #263057;
+    padding-top: 8px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.form-row.split {
+    flex-direction: row;
+    gap: 8px;
+}
+
+.form-row.split>* {
+    flex: 1;
+    min-width: 0;
+}
+
+.form-row input,
+.form-row select,
+.form-row textarea {
+    width: 100%;
+    max-width: 100%;
+}
+
+
+.inline {
+    display: flex;
+    gap: 8px;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: #0009;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal .modal-content {
+    background: #0c1230;
+    border: 1px solid #263057;
+    border-radius: 12px;
+    max-width: 700px;
+    width: 90%;
+    padding: 16px;
+    position: relative;
+    max-height: 80vh;
+    overflow: auto;
+}
+
+.close {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+}
+
+.cart-item {
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    border-bottom: 1px solid #263057;
+    padding: 8px 0;
+}
+
+.cart-item img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.cart-item h4 {
+    margin: 0;
+}
+
+.cart-item .qty-controls {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.badge {
+    font-size: 12px;
+    background: #223066;
+    border: 1px solid #2a3878;
+    padding: 2px 6px;
+    border-radius: 999px;
+    color: #cfe0ff;
+}
+
+input,
+select {
+    border-radius: 8px;
+    border: 1px solid #2a3566;
+    background: #0b1020;
+    color: var(--ink);
+    padding: 8px;
+}
+
+label {
+    font-size: 13px;
+    color: #c4c9eb;
+}
+
+small {
+    color: #9aa5d4;
+}
+
+/* =========================
+   ESTILOS PARA LANDINGBOARD
+   (scoped a .landing y clases lp- para evitar conflictos)
+   ========================= */
+
+.landing {
+    font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background:
+        radial-gradient(1200px 600px at 70% -10%, #1a2566 0%, transparent 60%),
+        radial-gradient(1000px 500px at -10% 20%, #16305c 0%, transparent 60%),
+        var(--bg);
+}
+
+.landing a {
+    color: inherit;
+    text-decoration: none
+}
+
+.landing .lp-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 16px
+}
+
+/* Header de la landing */
+.landing .lp-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #0b1020cc;
+    backdrop-filter: saturate(120%) blur(10px);
+    border-bottom: 1px solid #263057;
+}
+
+.landing .lp-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px
+}
+
+.landing .lp-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    letter-spacing: .3px
+}
+
+.landing .lp-logo {
+    font-size: 22px;
+    background: #223066;
+    border: 1px solid #2a3978;
+    padding: 6px 10px;
+    border-radius: 10px
+}
+
+.landing .lp-menu {
+    display: flex;
+    gap: 10px
+}
+
+.landing .lp-menu a {
+    padding: 8px 10px;
+    border-radius: 8px
+}
+
+.landing .lp-menu a:hover {
+    background: #1a224a
+}
+
+/* Botones propios de landing (no usan .btn para no chocar) */
+.landing .lp-btn {
+    display: inline-block;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid #2a3566;
+    background: #182046;
+    color: var(--ink);
+    cursor: pointer
+}
+
+.landing .lp-btn-primary {
+    background: #3a57ff;
+    border-color: #4f67ff
+}
+
+.landing .lp-btn-ghost {
+    background: transparent
+}
+
+/* Hero */
+.landing .lp-hero {
+    min-height: calc(100vh - 70px);
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 32px
+}
+
+.landing .lp-hero h1 {
+    margin: 0 0 8px 0;
+    font-size: clamp(28px, 5vw, 48px)
+}
+
+.landing .lp-hero p {
+    margin: 0 auto 22px;
+    max-width: 700px;
+    color: var(--muted);
+    font-size: clamp(14px, 2.3vw, 18px)
+}
+
+.landing .lp-cta {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap
+}
+
+.landing .lp-pill {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 13px;
+    color: #cfe0ff;
+    background: #0f1846;
+    border: 1px solid #263a8a;
+    padding: 6px 10px;
+    border-radius: 999px;
+}
+
+/* Secciones / tarjetas de landing */
+.landing section {
+    padding: 48px 16px
+}
+
+.landing .lp-h2 {
+    margin: 0 0 12px
+}
+
+.landing .lp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px
+}
+
+.landing .lp-card {
+    background: #111736;
+    border: 1px solid #263057;
+    border-radius: 16px;
+    padding: 16px
+}
+
+.landing .lp-card h3 {
+    margin: 0 0 6px
+}
+
+.landing .lp-card p {
+    margin: 0;
+    color: var(--muted)
+}
+
+.landing .lp-cta-bottom {
+    margin-top: 16px
+}
+
+/* Footer de landing */
+.landing .lp-footer {
+    border-top: 1px solid #263057;
+    color: #9aa5d4;
+    text-align: center;
+    padding: 18px
+}
+
+/* Responsive landing */
+@media (max-width: 600px) {
+    .landing .lp-menu {
+        gap: 6px
+    }
+
+    .landing .lp-menu a {
+        padding: 6px 8px
+    }
+}
