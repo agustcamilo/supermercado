@@ -17,7 +17,7 @@ const money = (n) =>
 
 
 async function loadProducts() {
-  const res = await fetch('./data/products.json');
+  const res = await fetch('../data/products.json');
   const baseData = await res.json();
 
   const saved = JSON.parse(localStorage.getItem('customProducts') || '[]');
